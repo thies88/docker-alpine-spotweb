@@ -8,8 +8,9 @@ weekly builds @Saturday at 3:00 (AM)
 -rebuilds new base image from scratch @http://nl.alpinelinux.org/alpine (Alpine 3.11)
 	-Base OS is updated
 	-Packages are updated
-	-Application within image(container) gets updated if new release is available. (Don't manual update Application within container unless you know what you're doing.)
-  -Application settings are restored if mapped correctly to a host folder, your /config folder and settings will be preserved
+	-Application within image(container) gets updated if new release is available. 
+	-Don't manual update Application within container unless you know what you're 		doing.
+  	-Application settings are restored if mapped correctly to a host folder, your /config folder and settings will be preserved
 
 To update your container:
 
