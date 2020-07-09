@@ -1,0 +1,59 @@
+#!/usr/bin/with-contenv bash
+
+if [ ! -f "/config/www/spotweb" ]; then
+	cd /config/www
+	git clone ${giturl}
+	chown -R abc:abc /config/www/spotweb
+ else
+	echo "Spotweb folder found ! to update spotweb remove folder: /config/www/spotweb"
+fi
+
+if [ ! -f "/config/spotweb-save" ]; then
+	cd /config
+	mkdir /config/spotweb-save
+fi
+
+#checks to see is spotweb setup is complete and incase of new container, restore saved setings
+if [ ! -f /config/www/spotweb/dbsettings.inc.php ]; then
+	echo .
+	echo dbsettings.inc.php not found please run Spotweb setup en restart container: https://thiscontainer/spotweb
+	echo After setup is completed please restart container.
+	echo .
+ else 
+	echo dbsettings.inc.php found spotweb is installed
+	cp /config/www/spotweb/dbsettings.inc.php /config/spotweb-save/dbsettings.inc.php
+fi
+
+if [ ! -f /config/spotweb-save/dbsettings.inc.php ] ; then
+	echo .
+	echo Saved dbsettings.inc.php not found please run Spotweb setup en restart container: https://thiscontainer/spotweb
+	echo After setup is completed please restart container.
+	echo .
+ else 
+	echo "Saved dbsettings.inc.php found restoring settings.... Please restart container if you manually copy the dbsettings.inc.php file"
+	cp /config/spotweb-save/dbsettings.inc.php /config/www/spotweb/dbsettings.inc.php
+fi
+
+# check if custom cronjob exists if not create one.
+if [ ! -f /config/spotweb-save/customcronjob ] ; then
+	touch /config/spotweb-save/customcronjob
+	echo "# min   hour    day     month   weekday command" > /config/spotweb-save/customcronjob
+	echo "0       *       *       *       *       php /config/www/spotweb/retrieve.php > /dev/null" >> /config/spotweb-save/customcronjob
+ else 
+	echo "Saved customcronjob found !"
+	#cp /config/www/spotweb-save/customcronjob /etc/crontabs
+fi
+
+#check if folder for custom startup script is found, if not create one. We need an cronjob to update our spots
+if [ ! -f "/config/custom-cont-init.d/addcustomcronjob" ]; then
+	mkdir /config/custom-cont-init.d
+	touch /config/custom-cont-init.d/addcustomcronjob
+	#chmod +x /config/custom-cont-init.d/cron_retrieve-spots
+	echo "#!/bin/bash" > /config/custom-cont-init.d/addcustomcronjob
+	echo " " >> /config/custom-cont-init.d/addcustomcronjob
+	echo "cp /config/spotweb-save/customcronjob /etc/crontabs" >> /config/custom-cont-init.d/addcustomcronjob
+	echo "chmod -R 600 /etc/crontabs" >> /config/custom-cont-init.d/addcustomcronjob
+ else
+	echo "addcustomcronjob found ! this is a good thing"
+fi
+
