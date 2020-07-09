@@ -12,7 +12,23 @@ weekly builds @Saturday at 3:00 (AM)
 	-Don't manual update Application within container unless you know what you're 		doing.
   	-Application settings are restored if mapped correctly to a host folder, your /config folder and settings will be preserved
 
-To update your container:
+### docker setup
+
+```
+docker create \
+  --name=spotweb \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Amsterdam \
+  -e APP_URL=/spotweb `#optional` \
+  -p 80:80 \
+  -p 443:443 `#optional` \
+  -v /path/to/config:/config \
+  --restart unless-stopped \
+  thies88/docker-alpine-spotweb
+```
+
+### update your container:
 
 Via Docker Run/Create
 
