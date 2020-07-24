@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 
-if [ ! -f "/config/www/spotweb" ]; then
+if [ ! -f "/config/www/spotweb/" ]; then
 	cd /config/www
 	git clone ${giturl}
 	chown -R abc:abc /config/www/spotweb
@@ -8,7 +8,7 @@ if [ ! -f "/config/www/spotweb" ]; then
 	echo "Spotweb folder found ! to update spotweb remove folder: /config/www/spotweb"
 fi
 
-if [ ! -f "/config/spotweb-save" ]; then
+if [ ! -f "/config/spotweb-save/" ]; then
 	cd /config
 	mkdir /config/spotweb-save
 fi
