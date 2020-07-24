@@ -37,7 +37,7 @@ fi
 # check if custom cronjob exists if not create one.
 if [ ! -f /config/spotweb-save/abc ] ; then
 	touch /config/spotweb-save/customcronjob
-	echo "# min   hour    day     month   weekday command" > /config/spotweb-save/customcronjob
+	echo "# min   hour    day     month   weekday command" > /config/spotweb-save/abc
 	echo "0	*	*	*	*	php /config/www/spotweb/retrieve.php > /dev/null" >> /config/spotweb-save/abc
  else 
 	echo "Saved customcronjob found !"
