@@ -59,7 +59,7 @@ fi
 
 # upgrade the db
 if [ ! -f "/config/www/spotweb/upgrade-db.php" ]; then
-	upgrade-db.php not found, no upgrade needed...
+	echo "upgrade-db.php not found, no upgrade needed..."
 else
 	s6-setuidgid abc php /config/www/spotweb/upgrade-db.php
 	#sleep 3
