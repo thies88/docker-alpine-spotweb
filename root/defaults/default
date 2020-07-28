@@ -33,3 +33,4 @@ server {
 		rewrite api/?$ /spotweb/index.php?page=newznabapi last;
    }
 }
+}
