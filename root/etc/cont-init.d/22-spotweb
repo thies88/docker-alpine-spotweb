@@ -1,11 +1,19 @@
 #!/usr/bin/with-contenv bash
 
+# display time in logging helper #
+# echo "$(format_date) [INFO] etc etc"
+# echo "$(format_date) [WARNING] etc etc"
+format_date() {
+  # echo is not needed
+  date "+%Y-%m-%d %H:%M:%S"
+}
+
 if [ ! -f "/config/www/spotweb/" ]; then
 	cd /config/www
 	git clone ${giturl}
 	chown -R abc:abc /config/www/spotweb
  else
-	echo "Spotweb folder found ! to update spotweb remove folder: /config/www/spotweb"
+	echo "$(format_date) [INFO] Spotweb folder found ! to update spotweb remove folder: /config/www/spotweb"
 fi
 
 if [ ! -f "/config/spotweb-save/" ]; then
@@ -16,21 +24,21 @@ fi
 #checks to see is spotweb setup is complete and incase of new container, restore saved setings
 if [ ! -f /config/www/spotweb/dbsettings.inc.php ]; then
 	echo .
-	echo dbsettings.inc.php not found please run Spotweb setup en restart container: https://thiscontainer/spotweb
-	echo After setup is completed please restart container.
+	echo "$(format_date) [WARNING] dbsettings.inc.php not found please run Spotweb setup en restart container: https://thiscontainer/spotweb"
+	echo "After setup is completed please restart container."
 	echo .
  else 
-	echo dbsettings.inc.php found spotweb is installed
+	echo "$(format_date) [INFO] dbsettings.inc.php found spotweb is installed"
 	cp /config/www/spotweb/dbsettings.inc.php /config/spotweb-save/dbsettings.inc.php
 fi
 
 if [ ! -f /config/spotweb-save/dbsettings.inc.php ] ; then
 	echo .
-	echo Saved dbsettings.inc.php not found please run Spotweb setup en restart container: https://thiscontainer/spotweb
-	echo After setup is completed please restart container.
+	echo "$(format_date) [WARNING] Saved dbsettings.inc.php not found please run Spotweb setup en restart container: https://thiscontainer/spotweb"
+	echo "After setup is completed please restart container."
 	echo .
  else 
-	echo "Saved dbsettings.inc.php found restoring settings.... Please restart container if you manually copy the dbsettings.inc.php file"
+	echo "$(format_date) [INFO] Saved dbsettings.inc.php found restoring settings.... Please restart container if you manually copy the dbsettings.inc.php file"
 	cp /config/spotweb-save/dbsettings.inc.php /config/www/spotweb/dbsettings.inc.php
 fi
 
@@ -40,7 +48,7 @@ if [ ! -f /config/spotweb-save/abc ] ; then
 	echo "# min   hour    day     month   weekday command" > /config/spotweb-save/abc
 	echo "0	*	*	*	*	php /config/www/spotweb/retrieve.php > /dev/null" >> /config/spotweb-save/abc
  else 
-	echo "Saved customcronjob found !"
+	echo "$(format_date) [INFO] Saved customcronjob found !"
 	#cp /config/www/spotweb-save/abc /etc/crontabs
 fi
 
@@ -54,12 +62,12 @@ if [ ! -f "/config/custom-cont-init.d/addcustomcronjob" ]; then
 	echo "cp /config/spotweb-save/abc /etc/crontabs" >> /config/custom-cont-init.d/addcustomcronjob
 	echo "chmod -R 600 /etc/crontabs" >> /config/custom-cont-init.d/addcustomcronjob
  else
-	echo "addcustomcronjob found ! this is a good thing"
+	echo "$(format_date) [INFO] addcustomcronjob found ! this is a good thing"
 fi
 
 # upgrade the db
 if [ ! -f "/config/www/spotweb/upgrade-db.php" ]; then
-	echo "upgrade-db.php not found, no upgrade needed..."
+	echo "$(format_date) [INFO] upgrade-db.php not found, no upgrade needed..."
 else
 	s6-setuidgid abc php /config/www/spotweb/upgrade-db.php
 	#sleep 3
