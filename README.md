@@ -4,8 +4,7 @@ Alpine based Image for creating docker container with nginx as a webserver servi
 
 Database server not included use https://hub.docker.com/r/linuxserver/mariadb as a database server and point to this MYSQL instance when running the initial spotweb setup.
 
-weekly builds @Saturday at 3:00 (AM)
-
+# weekly builds @Saturday at 3:00 (AM)
 *-rebuilds new base image from scratch @http://nl.alpinelinux.org/alpine (Alpine 3.11)
   *-Base OS is updated
   *-Packages are updated
