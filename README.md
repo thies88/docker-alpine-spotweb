@@ -25,7 +25,7 @@ docker create \
   -p 443:443 `#optional` \
   -v /path/to/config:/config \
   --restart unless-stopped \
-  thies88/docker-alpine-spotweb
+  thies88/spotweb
 ```
 After starting the container check log for instructions. go to https://ipdockerhost/spotweb
 
