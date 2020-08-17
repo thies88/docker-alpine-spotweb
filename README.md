@@ -44,4 +44,4 @@ Unraid users can use "Check for updates" within Unraid WebGui
 
 &nbsp;
 
-A custom base image built with [Alpine linux][https://alpinelinux.org/] and [S6 overlay](https://github.com/just-containers/s6-overlay) Based on: https://github.com/linuxserver/docker-baseimage-alpine
+A custom base image built with [Alpine linux](https://alpinelinux.org/) and [S6 overlay](https://github.com/just-containers/s6-overlay) Based on: https://github.com/linuxserver/docker-baseimage-alpine
