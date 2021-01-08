@@ -13,7 +13,7 @@ if [ ! -d "/config/www/spotweb" ]; then
 	git clone ${giturl}
 	chown -R abc:abc /config/www/spotweb
  else
-	echo "$(format_date) [INFO] Spotweb folder found ! to update spotweb remove folder: [ /config/www/spotweb ] and restart container"
+	echo "$(format_date) [INFO] Spotweb folder found ! to manually update spotweb. Remove folder: [ /config/www/spotweb ] and restart container"
 fi
 
 if [ ! -d "/config/spotweb-save" ]; then
