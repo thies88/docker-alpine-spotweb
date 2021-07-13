@@ -10,7 +10,7 @@ format_date() {
 
 if [ ! -d "/config/www/spotweb" ]; then
 	cd /config/www
-	git clone ${giturl}
+	git clone --depth 1 --branch ${gittag} ${giturl}
 	chown -R abc:abc /config/www/spotweb
  else
 	echo "$(format_date) [INFO] Spotweb folder found ! to manually update spotweb. Remove folder: [ /config/www/spotweb ] and restart container"
