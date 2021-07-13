@@ -8,6 +8,7 @@ LABEL maintainer="thies88"
 
 # environment settings
 ENV giturl="https://github.com/spotweb/spotweb.git"
+ENV gittag="master"
 
 # install spotweb packages
 RUN \
